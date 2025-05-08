@@ -29,9 +29,14 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']); // Redirigir al dashboard
       },
       error: (error) => {
-        // Manejar el error (por ejemplo, mostrar un mensaje)
-        console.error('Error al iniciar sesión', error);
         this.errorMessage = error.error?.message;
+
+        this.credentials.email='';
+        this.credentials.password='';
+
+        setTimeout(() => {
+          this.errorMessage= '';
+        }, 3000);
       }
     });
   }

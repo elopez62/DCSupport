@@ -48,7 +48,6 @@ export class RegistroComponent {
         }, 2000);
       },
       error: (error) => {
-        console.error('Error al registrar', error);
         this.errorMessage = error.error?.message;
         
         // Limpia solo el campo de email
