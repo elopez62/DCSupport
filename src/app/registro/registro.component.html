@@ -1,0 +1,56 @@
+<div class="container d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow p-4 rounded-lg" style="width: 450px;">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-4">Registrarse</h3>
+        <form (ngSubmit)="register()" #registerForm="ngForm">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="userData.nombre" required autocomplete="name">
+            <div *ngIf="registerForm.controls['nombre']?.invalid && (registerForm.controls['nombre']?.dirty || registerForm.controls['nombre']?.touched)" class="form-text text-danger">
+              El nombre es requerido.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="userData.email" required autocomplete="email">
+            <div *ngIf="registerForm.controls['email']?.invalid && (registerForm.controls['email']?.dirty || registerForm.controls['email']?.touched)" class="form-text text-danger">
+              Por favor, introduce un correo electrónico válido.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="rol" class="form-label">Rol</label>
+            <select class="form-select" id="rol" name="rol" [(ngModel)]="userData.rol_id" required autocomplete="off">
+              <option [value]="1">Administrador</option>
+              <option [value]="2">Ingeniero</option>
+              <option [value]="3">Cliente</option>
+            </select>
+            <div *ngIf="!userData.rol_id && registerForm.submitted" class="form-text text-danger">
+              El rol es requerido.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userData.password" required minlength="6" autocomplete="new-password">
+            <div *ngIf="registerForm.controls['password']?.invalid && (registerForm.controls['password']?.dirty || registerForm.controls['password']?.touched)" class="form-text text-danger">
+              La contraseña es requerida y debe tener al menos 6 caracteres.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required autocomplete="new-password">
+            <div *ngIf="confirmPassword !== registerForm.controls['password']?.value && (registerForm.controls['confirmPassword']?.dirty || registerForm.controls['confirmPassword']?.touched)" class="form-text text-danger">
+              Las contraseñas no coinciden.
+            </div>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || passwordMismatch">Registrarse</button>
+          </div>
+          <div class="mt-3 text-center">
+            ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a>
+          </div>
+        </form>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+      </div>
+    </div>
+  </div>
